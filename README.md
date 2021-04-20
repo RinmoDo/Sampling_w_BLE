@@ -1,9 +1,9 @@
-ESP-IDF template app
-====================
+ESP-IDF Sending Data via BLE
+=============================
 
-This is a template application to be used with [Espressif IoT Development Framework](https://github.com/espressif/esp-idf).
+This project is for analysing vibration data via a mobile phone.
 
-Please check [ESP-IDF docs](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html) for getting started instructions.
+the purpose of this code is to make an accurate and high resolution data acquisition from a vibration (accelerometer) sensor, and then send it via BLE ( Bluethoot Low Energy) to a mobile Phone which is linked to a platform where we can do the analyse part.
 
 *Code in this repository is in the Public Domain (or CC0 licensed, at your option.)
 Unless required by applicable law or agreed to in writing, this
