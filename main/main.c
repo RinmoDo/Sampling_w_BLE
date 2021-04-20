@@ -610,9 +610,7 @@ void throughput_server_task(void *param)
     //Added the check sum in the last data value.
     indicate_data[GATTS_NOTIFY_LEN - 1] = sum;
 #endif /* #if (CONFIG_EXAMPLE_GATTS_NOTIFY_THROUGHPUT) */
-    //uint32_t pMilis = esp_timer_get_time();
-
-        //ets_printf("time is %d \n",esp_timer_get_time()-pMilis);
+    
     for(;;) {
 #if (CONFIG_EXAMPLE_GATTS_NOTIFY_THROUGHPUT) 
         if (!can_send_notify) {
@@ -631,10 +629,7 @@ void throughput_server_task(void *param)
                     }
                 } else { //Add the vTaskDelay to prevent this task from consuming the CPU all the time, causing low-priority tasks to not be executed at all.
                     vTaskDelay( 10 / portTICK_PERIOD_MS );
-                    //TIMERG0.wdt_wprotect=TIMG_WDT_WKEY_VALUE;
-                    //TIMERG0.wdt_feed=1;
-                    //TIMERG0.wdt_wprotect=0;
-                    //esp_task_wdt_reset();
+                    
                 }
             }
         }
@@ -716,17 +711,9 @@ void app_main(void)
         ESP_LOGE(GATTS_TAG, "set local  MTU failed, error code = %x", local_mtu_ret);
     }
     /////////////////////////////////////////
-    
-    //esp_log_level_set("I2S", ESP_LOG_INFO);
-    //xTaskCreate(example_i2s_adc_dac, "example_i2s_adc_dac", 1024 * 2, NULL, 5, NULL);
     example_i2s_init();
-    //xTaskCreate(adc_read_task, "ADC read task", 2048, NULL, 5, NULL);
-    //return ESP_OK;
+    //This task is for taking the data from the accelerometer using the built-in ADC 
     xTaskCreatePinnedToCore(example_i2s_adc_dac, "example_i2s_adc_dac", 1024 * 2, NULL, 15, NULL, 1);
-    //configure_i2s();
-    
-    //xTaskCreatePinnedToCore(getDataLoopTask, "getDataLoopTask", 1024*2, NULL, 0, &samplingTaskHandle, 0 );
-    //xTaskCreate(getDataLoopTask, "getDataLoopTask", 2048, NULL, 5, NULL);
     /////////////////////////////////////////
     // The task is only created on the CPU core that Bluetooth is working on, 
     // preventing the sending task from using the un-updated Bluetooth state on another CPU.
